@@ -5,7 +5,7 @@ package.domain = org.autosell
 source.dir = .
 source.include_exts = py,png,jpg,kv,atlas,json
 version = 1.0
-requirements = python3,kivy==2.3.1,plyer,pyjnius
+requirements = python3==3.12,kivy==2.3.1,plyer,pyjnius
 orientation = portrait
 fullscreen = 0
 
