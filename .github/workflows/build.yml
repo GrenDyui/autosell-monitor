@@ -6,21 +6,38 @@ name: Build APK
   workflow_dispatch: {}
 
 jobs:
-  build-android:
-    name: Build for Android
+  build:
     runs-on: ubuntu-latest
+    env:
+      PYTHONFORANDROID_PREREQUISITES_INSTALL_INTERACTIVE: 0
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Build with Buildozer
-        uses: ArtemSBulgakov/buildozer-action@v1
-        id: buildozer
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          buildozer_version: stable
+          python-version: '3.11'
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Install Linux dependencies
+        # can duoc boi mot so p4a recipe nhung khong tu cai san tren Linux
+        run: |
+          sudo apt update
+          sudo apt -y install automake libltdl-dev
+
+      - name: Install Buildozer
+        run: pip install buildozer cython
+
+      - name: Build APK
+        run: buildozer -v android debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: autosell-monitor-apk
-          path: ${{ steps.buildozer.outputs.filename }}
+          path: bin/*.apk
