@@ -49,12 +49,15 @@ def _config_dir() -> str:
 
 
 def notify(title: str, message: str):
-    """Gui 1 thong bao Android qua plyer. Tren desktop (khong co plyer hoat
-    dong day du) se im lang bo qua thay vi crash, de con test duoc main.py
-    ngoai Android."""
+    """Gui 1 thong bao Android qua thu vien android-notify (pure Python,
+    khong keo theo goi phu thuoc nao khac - tranh loi build tung gap voi
+    plyer). Tren desktop se im lang bo qua thay vi crash, de con test duoc
+    main.py ngoai Android."""
+    if platform != "android":
+        return
     try:
-        from plyer import notification
-        notification.notify(title=title, message=message, app_name="AutoSell Monitor", timeout=10)
+        from android_notify import Notification
+        Notification(title=title, message=message).send()
     except Exception:
         pass
 
