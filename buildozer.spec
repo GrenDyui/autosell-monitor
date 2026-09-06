@@ -5,7 +5,8 @@ package.domain = org.autosell
 source.dir = .
 source.include_exts = py,png,jpg,kv,atlas,json
 version = 1.0
-requirements = python3==3.13.13,hostpython3==3.13.13,kivy==2.3.1,pyjnius,android-notify,requests==2.25.1,charset-normalizer==3.3.2
+requirements = python3==3.13.13,hostpython3==3.13.13,kivy==2.3.1,pyjnius,android-notify,requests==2.25.1,charset_normalizer
+p4a.local_recipes = ./recipes
 orientation = portrait
 fullscreen = 0
 
